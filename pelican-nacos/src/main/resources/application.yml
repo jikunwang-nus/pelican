@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: pelican-nacos
+  profiles:
+    active: dev
+server:
+  port: 6666
+nacos:
+  discovery:
+    server-addr: 192.168.0.100:8748 192.168.0.100:8750
+    username: nacos
+    password: nacos
+    register:
+      service-name: nacos-client
+      group-name: pelican-nacos
+      cluster-name: pelican-cluster
+#      healthy: true
+    auto-register: true
+  config:
+    server-addr: 192.168.0.100:8748,192.168.0.100:8750,192.168.0.100:8752
+    username: nacos
+    password: nacos
+    pelican-id: ${spring.application.name}-${spring.profiles.active}.${nacos.config.type}
+    type: yaml
+    auto-refresh: true
+    bootstrap:
+      enable: true
+    namespace: 1
+    group: data
+    config-long-poll-timeout: 10000

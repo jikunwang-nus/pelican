@@ -1,0 +1,32 @@
+spring:
+  main:
+    allow-circular-references: true
+    allow-bean-definition-overriding: true
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5675
+    username: cs
+    password: 123456
+    listener:
+      simple:
+        acknowledge-mode: manual
+        concurrency: 1
+        max-concurrency: 10
+        prefetch: 2
+  datasource:
+    url: jdbc:mysql://localhost:3306/biz?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: wonder@123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+logging:
+  level:
+    com.charsmart.data.mapper: debug
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+switch:
+  rabbitmq: false
+server:
+  http2:
+    enabled: true
+  port: 9000
+

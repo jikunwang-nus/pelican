@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: inventory-service
+eureka:
+  instance:
+    appname: inventory-service
+
+  client:
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
+server:
+  port: 9002
