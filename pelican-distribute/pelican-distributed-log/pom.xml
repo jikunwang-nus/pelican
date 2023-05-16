@@ -5,7 +5,7 @@
     <parent>
         <artifactId>pelican-distribute</artifactId>
         <groupId>com.charsmart</groupId>
-        <version>0.0.3</version>
+        <version>0.0.4</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -19,6 +19,14 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.charsmart</groupId>
+            <artifactId>pelican-common</artifactId>
         </dependency>
     </dependencies>
 </project>

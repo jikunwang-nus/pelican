@@ -3,34 +3,33 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
+
+    <groupId>com.charsmart</groupId>
+    <artifactId>pelican</artifactId>
+    <version>0.0.4</version>
+    <description>Pelican is not a bird</description>
+
+    <!--developers-->
+    <developers>
+        <developer>
+            <name>jikun.wang</name>
+            <email>jikunwonder@gmail.com</email>
+        </developer>
+    </developers>
+
+    <!--included modules-->
     <modules>
-        <module>pelican-spi</module>
-        <module>pelican-cases</module>
-        <module>pelican-netty</module>
-        <module>pelican-seata</module>
         <module>pelican-common</module>
-        <module>pelican-nacos</module>
         <module>pelican-basic</module>
-        <module>pelican-kafka</module>
-        <module>pelican-byte-code</module>
-        <module>pelican-jvm</module>
-        <module>pelican-ai</module>
         <module>pelican-algorithm</module>
         <module>pelican-spring</module>
         <module>pelican-high-concurrency</module>
         <module>pelican-distribute</module>
+        <module>pelican-lake</module>
+        <module>pelican-io</module>
     </modules>
-    <!--    <parent>-->
-    <!--        <groupId>org.springframework.boot</groupId>-->
-    <!--        <artifactId>spring-boot-starter-parent</artifactId>-->
-    <!--        <version>2.6.1</version>-->
-    <!--        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
-    <!--    </parent>-->
-    <groupId>com.charsmart</groupId>
-    <artifactId>pelican</artifactId>
-    <version>0.0.3</version>
-    <name>data</name>
-    <description>Demo project for Spring Boot</description>
+
+    <!--declare version-->
     <properties>
         <java.version>1.8</java.version>
         <mybatis.plus.version>3.4.1</mybatis.plus.version>
@@ -46,10 +45,15 @@
         <spring.boot.version>2.6.1</spring.boot.version>
         <spring.cloud.version>2021.0.6</spring.cloud.version>
         <freemarker.version>2.3.32</freemarker.version>
+        <commons.codec>1.15</commons.codec>
+        <projectlombok.lombok>1.18.24</projectlombok.lombok>
+        <org.testing>6.14.3</org.testing>
     </properties>
+
+    <!--declare dependencies included-->
     <dependencyManagement>
         <dependencies>
-            <!--spring boot dependencies-->
+            <!--pom spring boot dependencies-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-parent</artifactId>
@@ -58,7 +62,7 @@
                 <type>pom</type>
             </dependency>
 
-            <!--spring cloud dependencies-->
+            <!--pom spring cloud dependencies-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -66,75 +70,26 @@
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.ow2.asm/asm -->
-            <dependency>
-                <groupId>org.ow2.asm</groupId>
-                <artifactId>asm</artifactId>
-            </dependency>
+
+            <!--baomidou mybatis plus -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis.plus.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.18.24</version>
-                <optional>true</optional>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis.plus.generator.version}</version>
             </dependency>
+
+            <!--oracle driver -->
             <dependency>
                 <groupId>com.oracle.database.jdbc</groupId>
                 <artifactId>ojdbc8</artifactId>
                 <version>${oracle.driver.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-generator</artifactId>
-                <version>${mybatis.plus.generator.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.freemarker</groupId>
-                <artifactId>freemarker</artifactId>
-                <version>${freemarker.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.testng</groupId>
-                <artifactId>testng</artifactId>
-                <version>6.14.3</version>
-                <scope>compile</scope>
-            </dependency>
-            <dependency>
-                <groupId>commons-codec</groupId>
-                <artifactId>commons-codec</artifactId>
-                <version>1.15</version>
-            </dependency>
-
-            <!--project dependencies-->
-            <dependency>
-                <groupId>com.charsmart</groupId>
-                <artifactId>pelican-common</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.charsmart</groupId>
-                <artifactId>pelican-spi-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.charsmart</groupId>
-                <artifactId>pelican-spi-provider</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.charsmart</groupId>
-                <artifactId>pelican-spi-provider-v2</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.charsmart</groupId>
-                <artifactId>pelican-spi-dubbo-provider</artifactId>
-                <version>${project.version}</version>
-            </dependency>
+            <!--dubbo related-->
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo-common</artifactId>
@@ -166,16 +121,21 @@
                 <artifactId>dubbo-rpc-api</artifactId>
                 <version>${dubbo.version}</version>
             </dependency>
+
+            <!--now is netty-->
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
                 <version>${netty.version}</version>
             </dependency>
+
+            <!--seata-->
             <dependency>
                 <groupId>io.seata</groupId>
                 <artifactId>seata-spring-boot-starter</artifactId>
                 <version>${seata.version}</version>
             </dependency>
+
             <!--nacos spring boot-->
             <dependency>
                 <groupId>com.alibaba.boot</groupId>
@@ -186,6 +146,62 @@
                 <groupId>com.alibaba.boot</groupId>
                 <artifactId>nacos-config-spring-boot-starter</artifactId>
                 <version>${nacos.config.version}</version>
+            </dependency>
+
+            <!--other tools-->
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${projectlombok.lombok}</version>
+                <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>${org.testing}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons.codec}</version>
+            </dependency>
+
+
+            <!--project dependencies-->
+            <dependency>
+                <groupId>com.charsmart</groupId>
+                <artifactId>pelican-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charsmart</groupId>
+                <artifactId>pelican-spi-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charsmart</groupId>
+                <artifactId>pelican-spi-provider</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charsmart</groupId>
+                <artifactId>pelican-spi-provider-v2</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.charsmart</groupId>
+                <artifactId>pelican-spi-dubbo-provider</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -208,5 +224,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

@@ -3,6 +3,7 @@ package com.charsmart.data.distributed.log;
 import com.charsmart.data.distributed.log.constants.MessageLevel;
 import com.charsmart.data.distributed.log.constants.MessageType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ public class LocalJVMRecord {
     private String traceId;
     private long jvmSequenceId;
     private long currentRowId = 1;
-    private List<LogRow> rows;
+    private List<LogRow> rows=new ArrayList<>();
 
     public void acceptMethodRecord(String methodName, int lineNo, String message, boolean invoke) {
         LogRow row = new LogRow(currentRowId++, invoke ? MessageType.INVOKE : MessageType.INFO,
@@ -22,5 +23,6 @@ public class LocalJVMRecord {
                 String.valueOf(lineNo),
                 message);
         rows.add(row);
+        System.out.println(row);
     }
 }

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>pelican-spring-cloud</artifactId>
         <groupId>com.charsmart</groupId>
-        <version>0.0.3</version>
+        <version>0.0.4</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -31,6 +31,11 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.charsmart</groupId>
+            <artifactId>pelican-distributed-log</artifactId>
+            <version>0.0.4</version>
         </dependency>
     </dependencies>
 </project>

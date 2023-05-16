@@ -1,5 +1,6 @@
 package com.charsmart.data.spring.cloud.service.order.service;
 
+import com.charsmart.data.distributed.log.TraceLogger;
 import com.charsmart.data.spring.cloud.service.order.feign.InventoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,10 @@ public class OrderService {
 
     @PostMapping("/order/create")
     public String createOrder() {
+        TraceLogger.trace("create order already !");
+        TraceLogger.call("reduce inv qty by 1");
         Integer reduce = inventoryServiceFeign.reduce("1");
+        TraceLogger.trace("reduce complete!");
         if (reduce > 0) return "ok";
         else return "nck";
     }

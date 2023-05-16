@@ -9,6 +9,8 @@ import jdk.nashorn.internal.runtime.logging.Logger;
 @Logger
 public class Demo {
     public static void main(String[] args) {
-
+        TraceLogger.trace("start");
+        TraceLogger.trace("invoke rpc", true);
+        TraceLogger.trace("end");
     }
 }
