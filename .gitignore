@@ -19,7 +19,10 @@ target/
 *.iws
 *.iml
 *.ipr
-.DS_Store
+
+### MacOS
+*.DS_Store
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
