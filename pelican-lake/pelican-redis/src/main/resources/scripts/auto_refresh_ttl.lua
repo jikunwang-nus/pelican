@@ -1,11 +1,8 @@
-local val = redis.call('exists', KEYS[1])
-if val == 0 then
+if redis.call('pttl', KEYS[1]) <= 0 then
     return 0;
 end
-val = redis.call('hexists', KEYS[1], ARGV[1])
-if val == 0 then
+if redis.call('hexists', KEYS[1], ARGV[1]) == 0 then
     return 0;
-else
-    redis.call('expire', KEYS[1], ARGV[2])
-    return 1;
 end
+redis.call('pexpire', KEYS[1], ARGV[2])
+return 1;

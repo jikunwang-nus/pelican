@@ -25,5 +25,10 @@
             <artifactId>redisson</artifactId>
             <version>3.11.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.charsmart</groupId>
+            <artifactId>pelican-redis</artifactId>
+            <version>0.0.4</version>
+        </dependency>
     </dependencies>
 </project>

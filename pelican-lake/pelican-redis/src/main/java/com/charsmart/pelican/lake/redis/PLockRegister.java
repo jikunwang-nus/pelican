@@ -1,5 +1,6 @@
 package com.charsmart.pelican.lake.redis;
 
+import com.charsmart.pelican.lake.redis.pubsub.PelicanPubSub;
 import io.netty.util.HashedWheelTimer;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -20,10 +21,12 @@ public class PLockRegister {
     protected final RedisTemplate<String, String> redisTemplate;
     protected final HashedWheelTimer timer = new HashedWheelTimer();
 
+    protected final PelicanPubSub pubSub;
     protected Map<String, RedisScript<Long>> luaScripts = new LinkedHashMap<>();
 
-    public PLockRegister(RedisTemplate<String, String> redisTemplate) {
+    public PLockRegister(RedisTemplate<String, String> redisTemplate, PelicanPubSub pubSub) {
         this.redisTemplate = redisTemplate;
+        this.pubSub = pubSub;
     }
 
     public PLock getLock(String lockName) {
@@ -53,8 +56,9 @@ public class PLockRegister {
             redisScript.setResultType(Long.class);
             String path = "scripts/" + luaKey + ".lua";
             redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource(path)));
-            luaScripts.put("try_lock", redisScript);
+            luaScripts.put(luaKey, redisScript);
         }
         return redisScript;
     }
+
 }
